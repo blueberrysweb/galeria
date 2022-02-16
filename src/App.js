@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+
+const imatges = ["img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg"];
 
 function App() {
+  const [imggalery, setImgAmpliar] = useState("imgPetit");
+  const [fotoclikada, setFotoClikada] = useState(null);
+
+  const open = (foto) => {
+    setFotoClikada(foto);
+    imggalery === "imgPetit"
+      ? setImgAmpliar("imgGran")
+      : setImgAmpliar("imgPetit");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="content">
+        <div>
+          {imatges.map((foto) => (
+            <img
+              alt={foto}
+              onClick={() => open(foto)}
+              className={fotoclikada === foto ? imggalery : "imgPetit"}
+              src={`img/${foto}`}
+            />
+          ))}
+        </div>
+      </div>
+    </>
   );
 }
 
